@@ -8,19 +8,9 @@
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-XdYbMnZ/QjLh6iI4ogqCTaIjrFk87ip+ekIjefZch0Y+PvJ8CDYtEs1ipDmPorQ+" crossorigin="anonymous">
-    <!--<link href="css/upscuits.min.css?rel=1.4.4" rel="stylesheet">-->
-    <style>
-    body {
-        display: flex;
-        min-height: 100vh;
-        flex-direction: column;
-    }
-
-    main {
-        flex: 1 0 auto;
-    }
-    </style>
+    <link href="css/style.css" rel="stylesheet">
 </head>
 
 <body>
@@ -148,42 +138,43 @@
     <!-- mustache template for server row -->
     <script type="template/mustache" id="server-template">
         <div class="well {{alert}}">
-            <div class="row">
+            <div class="row card top-pad">
                 <div class="col m2">
                     <h2 class="flow-text">
                         {{friendlyname}}
-                        <span class="label label-status label-{{label}}"><i class="{{statusicon}}"></i></span>
+                        <span class="box box-{{label}}"><i class="{{statusicon}}"></i></span>
                     </h2>
-                    <!--<div class="row">
-                        <div class="col m6">
-                            <a href="javascript:void(0)" class="btn btn-default btn-sm tooltipped" data-position="bottom" data-delay="50" data-tooltip="Log of last month" data-i18n="[title]Log of last month"><i class="icon-time"></i></a>
-                        </div>
-                        <div class="col m6">
-                            <a href="{{url}}" target="_blank" class="btn btn-default btn-sm log tip" title="Open monitored page" data-i18n="[title]Open monitored page"><i class="icon-link"></i></a>
-                        </div>
-                    </div> -->
-                    <div class="log{{id}} hide">
-                        <ul class="list-unstyled">
-                            {{#log}}
-                                <li>
-                                    <span class="btn btn-xs btn-{{labeltype}}"><i class="icon-{{typeicon}} icon-white"></i></span>
-                                    &nbsp;{{datetime}}
-                                </li>
-                            {{/log}}
-                        </ul>
-                    </div>
+                    <a class="waves-effect waves-light btn modal-trigger" onclick="$('#modal{{id}}').openModal();" href="javascript:void(0)">Log</a>
                 </div>
                 {{#charts}}
-                <div class="col m2 graphs">
-                    <div class="donut center-align">
-                        <canvas width="90" height="90" uptime="{{uptime}}"></canvas>
-                        <div class=" uptime">
-                            {{uptime}}%
+                <div class="col m2 s6 graphs">
+                    <div class="valign-wrapper">
+                        <div class="valign donut center-align">
+                            <canvas width="90" height="90" uptime="{{uptime}}"></canvas>
+                            <div class="uptime">
+                                {{uptime}}%
+                            </div>
                         </div>
                     </div>
                 </div>
                 {{/charts}}
             </div>
+        </div>
+        <!-- Modal Structure -->
+        <div id="modal{{id}}" class="modal bottom-sheet">
+            <div class="modal-content">
+                <ul class="list-unstyled flow-text">
+                    {{#log}}
+                        <li>
+                            <span class="box box-{{labeltype}}"><i class="fa fa-{{typeicon}}"></i></span>
+                            &nbsp;{{datetime}} 
+                        </li>
+                    {{/log}}
+                </ul>
+            </div>
+            <!-- <div class="modal-footer">
+                <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+            </div> -->
         </div>
     </script>
 
@@ -198,7 +189,7 @@
 
     <!-- Compiled and minified JavaScript -->
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+    <script defer async type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
     <script src="js/vendors.min.js?rel=1.4.4" type="text/javascript"></script>
     <script src="js/config.js?rel=1.4.4" type="text/javascript"></script>
